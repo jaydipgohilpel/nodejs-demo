@@ -1,0 +1,108 @@
+[
+  {
+    "_id": {
+      "$oid": "658acf336d4d38fe56607a47"
+    },
+    "name": "sdjksd",
+    "city": "sadasbda"
+  },
+  {
+    "_id": {
+      "$oid": "658ad4ba32f7998d5734854f"
+    },
+    "name": "String",
+    "city": "String",
+    "date": {
+      "$date": "2020-05-11T20:14:14.796Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "658ad4ce546719fc238f9df4"
+    },
+    "name": "String",
+    "city": "String",
+    "date": {
+      "$date": "2020-05-11T20:14:14.796Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "658ad4f2546719fc238f9df6"
+    },
+    "name": "String",
+    "city": "String",
+    "date": {
+      "$date": "2020-05-11T00:00:00.000Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "658ad4f6546719fc238f9df8"
+    },
+    "name": "String",
+    "city": "String",
+    "date": {
+      "$date": "2020-05-11T00:00:00.000Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "658ad4f8546719fc238f9dfa"
+    },
+    "name": "String",
+    "city": "String",
+    "date": {
+      "$date": "2020-05-11T20:14:14.796Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "658ad508546719fc238f9dfc"
+    },
+    "name": "String",
+    "city": "String",
+    "date": {
+      "$date": "2020-05-11T20:14:14.796Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "658ad5bf017ec73a121619ed"
+    },
+    "name": "String",
+    "city": "String",
+    "date": "2020-05-11T20:14:14.796Z",
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "658ebeee272099f196c95756"
+    },
+    "name": "Alice",
+    "department": "HR",
+    "salary": 60000
+  },
+  {
+    "_id": {
+      "$oid": "658ebeee272099f196c95757"
+    },
+    "name": "Bob",
+    "department": "Engineering",
+    "salary": 75000
+  },
+  {
+    "_id": {
+      "$oid": "658ebeee272099f196c95758"
+    },
+    "name": "Charlie",
+    "department": "HR",
+    "salary": 55000
+  }
+]

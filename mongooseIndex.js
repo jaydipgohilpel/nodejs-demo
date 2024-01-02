@@ -2,6 +2,9 @@ const express = require("express");
 require("./mongooseConfig");
 const Info = require("./infoSchema");
 const Persons = require("./personsSchema");
+const Temp1 = require("./temp1Schema");
+const Posts = require("./postSchema");
+const Users = require("./postSchema");
 // const { MongoClient } = require('mongodb');
 // const uri = 'mongodb://localhost:27017'; // Replace with your MongoDB connection string
 // const client = new MongoClient(uri);
@@ -349,27 +352,118 @@ async function testfunction() {
   //unary operator
   // $typ
 
-  console.log(
-    await Persons.aggregate([
-      {
-        $project: {
-          _id: 1,
-          firstName: 1,
-          nameType: { $type: "$firstName" },
-          ageType: { $type: "$age" },
-          weightType: { $type: "$weight" },
-          heightType: { $type: "$height" },
-          companyType: { $type: "$company" },
-          scoresType: { $type: "$scores" },
-          tagsType: { $type: "$tags" },
-          is_activeType: { $type: "$is_active" },
-        }
+  // console.log(
+  //   await Persons.aggregate([
+  //     {
+  //       $project: {
+  //         _id: 1,
+  //         firstName: 1,
+  //         _idType: { $type: "$_id" },
+  //         nameType: { $type: "$firstName" },
+  //         ageType: { $type: "$age" },
+  //         weightType: { $type: "$weight" },
+  //         heightType: { $type: "$height" },
+  //         companyType: { $type: "$company" },
+  //         scoresType: { $type: "$scores" },
+  //         tagsType: { $type: "$tags" },
+  //         is_activeType: { $type: "$is_active" },
+  //       }
+  //     }
+  //   ])
+  // );
+
+  // $out
+  // console.log(
+  //   await Persons.aggregate([
+  //     {
+  //       $group: {
+  //         _id: {
+  //           age: "$age",
+  //           eyeColor: "$eyeColor",
+
+  //         }
+  //       }
+  //     },
+  //     { $out: "allCollectionData" }
+  //   ])
+  // );
+
+  // console.log(await Persons.aggregate([
+  //   {
+  //     $match: {
+  //       $and: [
+  //         { gender: "female" },
+  //       ]
+  //     }
+  //   },
+  //   {
+  //     $group: {
+  //       _id: { age: "$age" },
+  //       count: { $sum: 1 },
+  //       details: {
+  //         $push: {
+  //           $concat: [
+  //             "$firstName",
+  //             " ",
+  //             "$lastName",
+  //             ", phone: ",
+  //             "$phone",
+  //             ", ",
+  //             " address:",
+  //             "$address.address", ",city:", "$address.city", ",state:", "$address.state"
+  //           ]
+  //         }
+  //       }
+  //     }
+  //   },
+  //   { $out: "dangerZone" }
+  // ]));
+
+  // $lookup
+  const result = await Posts.aggregate([
+    {
+      $lookup: {
+        from: "persons",
+        localField: "userId",
+        foreignField: "id",
+        as: "user"
+      },
+    },
+
+    // { $unwind: "$user" },
+    {
+      $lookup: {
+        from: "comments",
+        localField: "id",
+        foreignField: "postId",
+        as: "comments"
       }
-    ])
-  );
+    },
+    // { $unwind: "$comments" },
+    {
+      $project: {
+        id: 1,
+        title: 1,
+        body: 1,
+        tags: 1,
+        "user.id": 1,
+        "user.firstName": 1,
+        "user.lastName": 1,
+        "comments.id": 1,
+        "comments.body": 1,
+      }
+    },
+
+  ]);
+
+  // console.log(result);
+  console.log(JSON.stringify(result, null, 2));
+  console.log("\ncount:", result.length);
+
+
 }
 
 // db.user.aggregate([{ $group: { _id: "$firstName", total: { $sum: "$age" }, count: { $sum: 1 } } }])
 // db.user.aggregate([{ $match: { age: { $gt: 10 } } }])
 testfunction();
-app.listen(4000);
+app.listen(4001);
