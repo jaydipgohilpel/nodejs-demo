@@ -7,6 +7,8 @@ const PostsSchema = new mongoose.Schema({
   _id: String,
   department: String,
   salary: Number,
+  is_active: Boolean,
+  id: String
 })
 
-module.exports = mongoose.model('posts', PostsSchema)
+module.exports = mongoose.model('travelers', PostsSchema)

@@ -420,50 +420,62 @@ async function testfunction() {
   // ]));
 
   // $lookup
-  const result = await Posts.aggregate([
-    {
-      $lookup: {
-        from: "persons",
-        localField: "userId",
-        foreignField: "id",
-        as: "user"
-      },
-    },
+  // const result = await Posts.aggregate([
+  //   {
+  //     $lookup: {
+  //       from: "persons",
+  //       localField: "userId",
+  //       foreignField: "id",
+  //       as: "user"
+  //     },
+  //   },
 
-    // { $unwind: "$user" },
+  //   // { $unwind: "$user" },
+  //   {
+  //     $lookup: {
+  //       from: "comments",
+  //       localField: "id",
+  //       foreignField: "postId",
+  //       as: "comments"
+  //     }
+  //   },
+  //   // { $unwind: "$comments" },
+  //   {
+  //     $project: {
+  //       id: 1,
+  //       title: 1,
+  //       body: 1,
+  //       tags: 1,
+  //       "user.id": 1,
+  //       "user.firstName": 1,
+  //       "user.lastName": 1,
+  //       "comments.id": 1,
+  //       "comments.body": 1,
+  //     }
+  //   },
+
+  // ]);
+
+  // // console.log(result);
+  // console.log(JSON.stringify(result, null, 2));
+  // console.log("\ncount:", result.length);
+
+  let gl = await Posts.aggregate([
     {
-      $lookup: {
-        from: "comments",
-        localField: "id",
-        foreignField: "postId",
-        as: "comments"
+      $graphLookup: {
+        from: "airports",
+        startWith: "$nearestAirport",
+        connectFromField: "connects",
+        connectToField: "airport",
+        maxDepth: 2,
+        depthField: "numConnections",
+        as: "destinations"
       }
     },
-    // { $unwind: "$comments" },
-    {
-      $project: {
-        id: 1,
-        title: 1,
-        body: 1,
-        tags: 1,
-        "user.id": 1,
-        "user.firstName": 1,
-        "user.lastName": 1,
-        "comments.id": 1,
-        "comments.body": 1,
-      }
-    },
-
-  ]);
-
-  // console.log(result);
-  console.log(JSON.stringify(result, null, 2));
-  console.log("\ncount:", result.length);
-
+  ])
+  console.log(JSON.stringify(gl, null, 2));
 
 }
 
-// db.user.aggregate([{ $group: { _id: "$firstName", total: { $sum: "$age" }, count: { $sum: 1 } } }])
-// db.user.aggregate([{ $match: { age: { $gt: 10 } } }])
 testfunction();
 app.listen(4001);
